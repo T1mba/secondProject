@@ -37,7 +37,7 @@ class ProductAdapter (
     }
     override  fun getItemCount(): Int = values.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
-        holder.title.text = values[position].title
+        holder.title.text = values[position].Title
         holder.article.text = values[position].articleNumber.toString()
         holder.price.text = values[position].minCost.toString()
         holder.number.text = values[position].production_workshop_number.toString()
@@ -48,7 +48,7 @@ class ProductAdapter (
             val fileName = values[position].image.split("\\").lastOrNull()
         Log.d("KEILOG",fileName?:"null")
         if(fileName!=null){
-        HTTP.getImage("http://s4a.kolei.ru/${fileName}"){bitmap, error ->
+        HTTP.getImage("http://s4a.kolei.ru/img/${fileName}"){bitmap, error ->
             if(bitmap !=null)
                 activity.runOnUiThread {
                     try {

@@ -17,18 +17,20 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
     var counter = 0
     var ready = false
-    var username = ""
-    var token = " "
+    private lateinit var app: MyApp
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        app = applicationContext as MyApp
+
        val logoutButton = findViewById<TextView>(R.id.logout_button)
         val login = findViewById<TextView>(R.id.logs)
         val onLoginResponce: (login: String, password: String)->Unit = { login, password ->
             // первым делом сохраняем имя пользователя,
             // чтобы при необходимости можно было разлогиниться
-            username = login
+            app.username = login
 
             // затем формируем JSON объект с нужными полями
             val json = JSONObject()
@@ -59,10 +61,10 @@ class MainActivity : AppCompatActivity() {
 
                         // есть токен!!!
                         if(jsonResp.getJSONObject("notice").has("token")) {
-                            token = jsonResp.getJSONObject("notice").getString("token")
+                            app.token = jsonResp.getJSONObject("notice").getString("token")
                             runOnUiThread {
                                 // тут можно переходить на следующее окно
-                                Toast.makeText(this, "Success get token: $token", Toast.LENGTH_LONG)
+                                Toast.makeText(this, "Success get token: ${app.token}", Toast.LENGTH_LONG)
                                         .show()
                             }
                         }
@@ -93,18 +95,19 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
         LoginDialog(onLoginResponce)
                 .show(supportFragmentManager, null)
         logoutButton.setOnClickListener{
             HTTP.requestPOST(
                     "http://s4a.kolei.ru/logout",
-                    JSONObject().put("username", username),
+                    JSONObject().put("username", app.username),
                     mapOf(
                             "Content-Type" to "application/json"
                     )
             ){result, error ->
                 // при выходе не забываем стереть существующий токен
-                token = ""
+                app.token = ""
 
                 // каких-то осмысленных действий дальше не предполагается
                 // разве что снова вызвать форму авторизации

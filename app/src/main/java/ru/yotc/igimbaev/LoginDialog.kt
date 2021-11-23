@@ -11,11 +11,13 @@ import ru.yotc.myapplication.HTTP
 
 class LoginDialog(private val callback: (login: String, password: String)-> Unit): DialogFragment() {
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog{
         return activity?.let    {
             val builder = AlertDialog.Builder(it)
             var username = ""
             var token = ""
+
             val loginLayout = layoutInflater.inflate(R.layout.dialog_registr, null)
             val loginText = loginLayout.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.login)
             val loginError = loginLayout.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.login_error)

@@ -2,7 +2,7 @@ package ru.yotc.igimbaev
 
 data class Product(
     val iD: Int,
-    val title: String,
+    val Title: String,
     val productTypeID: Int,
     val articleNumber: Int,
     val description: String?,
