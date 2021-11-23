@@ -1,9 +1,11 @@
 package ru.yotc.igimbaev
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -132,4 +134,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun perehod(view: View) {
+        startActivityForResult(Intent(this, Product_Activity::class.java),1)
+    }
+
+
 }

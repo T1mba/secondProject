@@ -108,7 +108,11 @@ object HTTP
         }).start()
     }
 
-    fun requestGET(r_url: String, callback: (result: String?, error: String)->Unit) {
+    fun requestGET(
+        r_url: String,
+        headers: Map<String, String>?,
+        callback: (result: String?, error: String)->Unit
+    ) {
         Thread( Runnable {
             var error = ""
             var result: String? = null
@@ -119,6 +123,12 @@ object HTTP
                     obj.openConnection() as HttpsURLConnection
                 else
                     obj.openConnection() as HttpURLConnection
+
+                if(headers!=null){
+                    for((key, value) in headers){
+                        con.setRequestProperty(key, value)
+                    }
+                }
 
                 con.requestMethod = GET
                 val responseCode = con.responseCode

@@ -25,4 +25,13 @@
         android:gravity="right"
         android:textColor="@color/design_default_color_primary"
         android:text="Логин"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/products"
+        android:layout_gravity="right"
+        android:onClick="perehod"
+        android:text="Продукты"/>
+
+
 </LinearLayout>
