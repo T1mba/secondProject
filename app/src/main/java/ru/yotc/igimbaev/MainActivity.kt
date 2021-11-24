@@ -24,9 +24,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         app = applicationContext as MyApp
-
+        val loginLayout = layoutInflater.inflate(R.layout.dialog_registr, null)
+        val loginText = loginLayout.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.login)
+        val password = loginLayout.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.password)
+        val splash = findViewById<ImageView>(R.id.splash)
        val logoutButton = findViewById<TextView>(R.id.logout_button)
-        val login = findViewById<TextView>(R.id.logs)
+        val logint = findViewById<TextView>(R.id.logs)
         val onLoginResponce: (login: String, password: String)->Unit = { login, password ->
             // первым делом сохраняем имя пользователя,
             // чтобы при необходимости можно было разлогиниться
@@ -63,9 +66,14 @@ class MainActivity : AppCompatActivity() {
                         if(jsonResp.getJSONObject("notice").has("token")) {
                             app.token = jsonResp.getJSONObject("notice").getString("token")
                             runOnUiThread {
+
+
                                 // тут можно переходить на следующее окно
                                 Toast.makeText(this, "Success get token: ${app.token}", Toast.LENGTH_LONG)
                                         .show()
+
+
+
                             }
                         }
                         else
@@ -95,10 +103,24 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+        object : CountDownTimer(5000,1000){
+            override fun onTick(millisUntilFinished: Long) {
+                // заставляем пялиться на нашу заставку как минимум 3 секунды
+                counter++
+                if(counter>3 && ready){
+                    // данные получены - скрываем заставку
+                    splash.elevation = 0F
+                    this.cancel()
+                }
+            }
 
-        LoginDialog(onLoginResponce)
-                .show(supportFragmentManager, null)
+            override fun onFinish(){
+                splash.elevation = 0F
+            }
+        }.start()
+
         logoutButton.setOnClickListener{
+
             HTTP.requestPOST(
                     "http://s4a.kolei.ru/logout",
                     JSONObject().put("username", app.username),
@@ -127,12 +149,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        login.setOnClickListener{
+        logint.setOnClickListener{
             LoginDialog(onLoginResponce)
                     .show(supportFragmentManager, null)
         }
 
 
+        LoginDialog(onLoginResponce)
+                .show(supportFragmentManager, null)
 
 
 

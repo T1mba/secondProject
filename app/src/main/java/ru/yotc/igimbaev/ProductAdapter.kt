@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
 import ru.yotc.myapplication.HTTP
@@ -58,8 +59,17 @@ class ProductAdapter (
                     }
                 }
 
-            else
-                Log.d("KEILOG", error)
+            else{
+                    activity.runOnUiThread{
+                        try{
+                            holder.image.setImageResource(R.drawable.picturs)
+                        }
+                        catch (e: Exception){
+
+                        }
+                    }
+            }
+
         }
 
 
