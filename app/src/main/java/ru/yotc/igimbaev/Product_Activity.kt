@@ -1,5 +1,6 @@
 package ru.yotc.igimbaev
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONObject
 import ru.yotc.myapplication.HTTP
 import java.lang.Exception
@@ -88,9 +90,9 @@ class Product_Activity : AppCompatActivity() {
             productRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val productAdapter = ProductAdapter(productList, this)
         productAdapter.setItemClickListener {
-            runOnUiThread{
-                showDetalisInfo(it)
-            }
+            startActivity(
+                Intent(this, Material_activity::class.java)
+            )
         }
             productRecyclerView.adapter = productAdapter
     }

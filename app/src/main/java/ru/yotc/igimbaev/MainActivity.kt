@@ -1,5 +1,6 @@
 package ru.yotc.igimbaev
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     var counter = 0
     var ready = false
     private lateinit var app: MyApp
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                         if(jsonResp.getJSONObject("notice").has("token")) {
                             app.token = jsonResp.getJSONObject("notice").getString("token")
                             runOnUiThread {
-
 
                                 // тут можно переходить на следующее окно
                                 Toast.makeText(this, "Success get token: ${app.token}", Toast.LENGTH_LONG)

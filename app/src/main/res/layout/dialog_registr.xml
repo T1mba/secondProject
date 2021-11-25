@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-
+            android:text="tigimbaev"
             android:hint="Введите логин" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-
+            android:text="020703"
             android:hint="Введите пароль" />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView

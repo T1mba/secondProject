@@ -2,6 +2,7 @@ package ru.yotc.igimbaev
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
@@ -25,6 +27,7 @@ class ProductAdapter (
     private var itemClickListener: ((Product)-> Unit)? = null
         fun setItemClickListener(itemClickListener:(Product)-> Unit){
             this.itemClickListener = itemClickListener
+
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -86,4 +89,7 @@ class ProductAdapter (
             var number: TextView = itemView.findViewById(R.id.workshopNumber)
             var container: LinearLayout = itemView.findViewById(R.id.container)
         }
+
+
+
 }
