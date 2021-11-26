@@ -52,29 +52,24 @@ class ProductAdapter (
             val fileName = values[position].image.split("\\").lastOrNull()
         Log.d("KEILOG",fileName?:"null")
         if(fileName!=null){
-        HTTP.getImage("http://s4a.kolei.ru/img/${fileName}"){bitmap, error ->
-            if(bitmap !=null)
-                activity.runOnUiThread {
-                    try {
-                        holder.image.setImageBitmap(bitmap)
-                    } catch (e: Exception) {
+            if (values[position].bitmap == null){
+                HTTP.getImage( "http://s4a.kolei.ru/img/${fileName}"){ bitmap,error->
+                    if(bitmap != null){
+                        activity.runOnUiThread {
+                            try{
+                                values[position].bitmap = bitmap
+                                holder.image.setImageBitmap(bitmap)
+                            }catch (e:Exception){
 
+                            }
+                        }
                     }
+                    else
+                        holder.image.setImageBitmap(values[position].bitmap)
                 }
-
-            else{
-                    activity.runOnUiThread{
-                        try{
-                            holder.image.setImageResource(R.drawable.picturs)
-                        }
-                        catch (e: Exception){
-
-                        }
-                    }
             }
-
-        }
-
+            else
+                holder.image.setImageResource(R.drawable.picturs)
 
         }
 

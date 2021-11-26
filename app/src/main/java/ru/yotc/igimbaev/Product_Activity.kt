@@ -24,18 +24,7 @@ class Product_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_)
         app = applicationContext as MyApp
-        val productAdapter = ProductAdapter(app.productList, this)
-        productAdapter.setItemClickListener {
-            runOnUiThread {
-                app.currentProduct = it
-                startActivity(
-                        Intent(this, Material_activity::class.java)
-                )
-            }
 
-
-        }
-        productRecyclerView.adapter = productAdapter
         productRecyclerView = findViewById<RecyclerView>(R.id.productView)
 
         if(app.token.isNotEmpty()) {
@@ -99,7 +88,18 @@ class Product_Activity : AppCompatActivity() {
             Toast.makeText(this, "Не найден токен, нужно залогиниться", Toast.LENGTH_LONG)
                 .show()
             productRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val productAdapter = ProductAdapter(app.productList, this)
+        productAdapter.setItemClickListener {
+            runOnUiThread {
+                app.currentProduct = it
+                startActivity(
+                    Intent(this, Material_activity::class.java)
+                )
+            }
 
+
+        }
+        productRecyclerView.adapter = productAdapter
     }
 
 

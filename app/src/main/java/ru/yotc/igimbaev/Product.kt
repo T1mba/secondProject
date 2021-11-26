@@ -1,5 +1,7 @@
 package ru.yotc.igimbaev
 
+import android.graphics.Bitmap
+
 data class Product(
     val ID: Int,
     val Title: String,
@@ -9,5 +11,6 @@ data class Product(
     val image: String,
     val production_person_count: Int,
     val production_workshop_number: Int,
-    val minCost: Int
+    val minCost: Int,
+    var bitmap: Bitmap? = null
 )

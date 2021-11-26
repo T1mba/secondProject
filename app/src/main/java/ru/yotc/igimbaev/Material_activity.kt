@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -133,5 +134,13 @@ class Material_activity : AppCompatActivity() {
 
     private fun showDetailsinfo(it: Product) {
         var image:ImageView = findViewById(R.id.logo)
+        var desc: TextView = findViewById(R.id.opis)
+        var number: TextView = findViewById(R.id.number)
+        var people: TextView = findViewById(R.id.people)
+        desc.text = it.description
+        number.text = it.production_workshop_number.toString()
+        people.text = it.production_person_count.toString()
+        if(it.bitmap != null)
+            image.setImageBitmap(it.bitmap!!)
     }
 }
