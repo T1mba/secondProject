@@ -29,10 +29,10 @@ class MaterialAdapter (
     override fun getItemCount(): Int = values.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
         holder.title.text = values[position].Title
-        holder.kolvo.text = values[position].CountInPack.toString()
+        holder.kolvo.text = values[position].CountInPack
         holder.unit.text = values[position].Unit
-        holder.stock.text = values[position].CountInStock.toString()
-        holder.price.text = values[position].Cost.toString()
+        holder.stock.text = values[position].CountInStock
+        holder.price.text = values[position].Cost
         itemClickListener?.invoke(values[position])
 
     }

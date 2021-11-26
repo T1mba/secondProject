@@ -15,7 +15,7 @@ import ru.yotc.myapplication.HTTP
 import java.lang.Exception
 
 class Product_Activity : AppCompatActivity() {
-    private val productList = ArrayList<Product>()
+
     private lateinit var app: MyApp
 
     private lateinit var callback: (result: String?, error: String) -> Unit
@@ -24,7 +24,18 @@ class Product_Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_)
         app = applicationContext as MyApp
+        val productAdapter = ProductAdapter(app.productList, this)
+        productAdapter.setItemClickListener {
+            runOnUiThread {
+                app.currentProduct = it
+                startActivity(
+                        Intent(this, Material_activity::class.java)
+                )
+            }
 
+
+        }
+        productRecyclerView.adapter = productAdapter
         productRecyclerView = findViewById<RecyclerView>(R.id.productView)
 
         if(app.token.isNotEmpty()) {
@@ -37,7 +48,7 @@ class Product_Activity : AppCompatActivity() {
 
                 if (result != null)
                     try {
-                        productList.clear()
+                        app.productList.clear()
                         val json = JSONObject(result)
                         if (!json.has("notice"))
                             throw Exception("Не верный формат ответа, ожидался объект notice")
@@ -45,7 +56,7 @@ class Product_Activity : AppCompatActivity() {
                             val data = json.getJSONObject("notice").getJSONArray("data")
                             for (i in 0 until data.length()) {
                                 val item = data.getJSONObject(i)
-                                productList.add(
+                                app.productList.add(
                                     Product(
                                         item.getInt("ID"),
                                         item.getString("Title"),
@@ -88,16 +99,8 @@ class Product_Activity : AppCompatActivity() {
             Toast.makeText(this, "Не найден токен, нужно залогиниться", Toast.LENGTH_LONG)
                 .show()
             productRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val productAdapter = ProductAdapter(productList, this)
-        productAdapter.setItemClickListener {
-            startActivity(
-                Intent(this, Material_activity::class.java)
-            )
-        }
-            productRecyclerView.adapter = productAdapter
-    }
-
-    private fun showDetalisInfo(it: Product) {
 
     }
+
+
 }
