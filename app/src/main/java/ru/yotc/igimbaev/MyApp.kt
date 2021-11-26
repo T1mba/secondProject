@@ -10,6 +10,6 @@ class MyApp : Application() {
     private  var size: Int = 0
     val productList = ArrayList<Product>()
     var productmaterialList = ArrayList<ProductMaterial>()
-    val filtredMaterialList = ArrayList<Materiainfo>()
+
     var currentProduct: Product?=null
 }

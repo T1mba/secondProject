@@ -17,7 +17,7 @@ class Material_activity : AppCompatActivity() {
     private lateinit var app: MyApp
 
     private lateinit var materialview: RecyclerView
-
+    val filtredMaterialList = ArrayList<Materiainfo>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_material_activity)
@@ -91,13 +91,15 @@ class Material_activity : AppCompatActivity() {
         ) { result, error ->
             if (result != null)
                 try {
-                    app.productmaterialList.clear()
+                    filtredMaterialList.clear()
                     val json = JSONObject(result)
                     if (!json.has("notice"))
                         throw Exception("Не верный формат ответа, ожидался объект notice")
                     if (json.getJSONObject("notice").has("data")) {
                         val data = json.getJSONObject("notice").getJSONArray("data")
-                        for (i in 0 until data.length()) {
+                        for (i in 0 until app.materialList.size)
+                        if(app.materialList.[i].contains())
+                        {
                             val item = data.getJSONObject(i)
 
                             app.productmaterialList.add(
